@@ -6,8 +6,8 @@ php:
 
 before_script:
   - composer install
-  - pyrus install pear/PHP_Depend
-  - phpenv rehash
+  - pyrus channel-discover pear.pdepend.org
+  - pyrus install pdepend/PHP_Depend-beta
   - pyrus install pear/PHP_CodeSniffer
   - phpenv rehash
   - pyrus install phpunit/phpcpd
