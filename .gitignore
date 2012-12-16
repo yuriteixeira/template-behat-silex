@@ -1,5 +1,6 @@
 composer.lock
 .idea
+cache.properties
 
 vendor/*
 var/log/*

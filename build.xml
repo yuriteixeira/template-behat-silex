@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="behat-silex" default="build">
+
+    <!-- Setup -->
+    <property environment="env"/>
+    <property name="peardir" value="${env.PHP_PEAR_BIN_DIR}"/>
+
+    <!-- Build Target -->
+    <target name="ci" depends="lint,phpmd,phpcpd,phpcs,phpunit-ci" />
+    <target name="build" depends="prepare,lint,phploc,pdepend,phpmd,phpcpd,phpcs,phpunit" />
+
+    <!-- Task Targets -->
+    <target name="clean" description="Clean build artifacts">
+        <delete dir="${basedir}/build"/>
+    </target>
+
+    <target name="prepare" depends="clean" description="Prepare for build">
+        <mkdir dir="${basedir}/build/logs"/>
+        <mkdir dir="${basedir}/build/pdepend"/>
+        <mkdir dir="${basedir}/build/coverage"/>
+
+        <exec executable="composer" failonerror="true">
+            <arg value="install" />
+        </exec>
+    </target>
+
+    <target name="lint" description="Perform syntax check of sourcecode files">
+        <apply executable="php" failonerror="true">
+            <arg value="-l" />
+
+            <fileset dir="${basedir}/">
+                <include name="**/*.php" />
+                <exclude name="vendor/" />
+                <exclude name="bin/" />
+                <modified />
+            </fileset>
+        </apply>
+    </target>
+
+    <target name="phploc" description="Measure project size using PHPLOC">
+        <exec executable="phploc">
+            <arg path="${basedir}/src" />
+        </exec>
+    </target>
+
+    <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+        <exec executable="pdepend">
+            <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+            <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+            <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+            <arg path="${basedir}/src" />
+        </exec>
+    </target>
+
+    <target name="phpmd" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
+        <exec executable="phpmd" failonerror="true">
+            <arg path="${basedir}/src" />
+            <arg value="text" />
+            <arg value="codesize,design,unusedcode" />
+        </exec>
+    </target>
+
+    <target name="phpcpd" description="Find duplicate code using PHPCPD">
+        <exec executable="phpcpd" failonerror="false">
+            <arg path="${basedir}/src"/>
+        </exec>
+    </target>
+
+    <target name="phpunit" description="Run unit tests with PHPUnit">
+        <exec executable="phpunit" failonerror="true">
+            <arg value="-c" />
+            <arg value="${basedir}/phpunit.dist.xml" />
+        </exec>
+    </target>
+
+    <target name="phpunit-ci" description="Run unit tests with PHPUnit without coverage reports">
+        <exec executable="phpunit" failonerror="true">
+            <arg value="-c" />
+            <arg value="${basedir}/phpunit-ci.dist.xml" />
+            <arg value="--coverage-text" />
+        </exec>
+    </target>
+
+    <target name="phpcs" description="Run CodeSniffer to validate coding standards">
+        <exec executable="phpcs" failonerror="true">
+            <arg value="--standard=PSR2" />
+            <arg path="${basedir}/src" />
+        </exec>
+    </target>
+</project>

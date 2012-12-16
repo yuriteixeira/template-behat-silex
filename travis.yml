@@ -1,0 +1,27 @@
+language: php
+php:
+  - "5.4"
+  - "5.3"
+
+before_script:
+  - composer install
+
+  - pyrus install pear/PHP_Depend
+  - phpenv rehash
+
+  - pyrus install pear/PHP_CodeSniffer
+  - phpenv rehash
+
+  - pyrus install phpunit/phpcpd
+  - phpenv rehash
+
+  - pyrus channel-discover pear.phpmd.org
+  - pyrus install --alldeps phpmd/PHP_PMD
+  - phpenv rehash
+
+script:
+  - ant ci
+
+notifications:
+  email:
+    - travis-ci@yuriteixeira.com.br

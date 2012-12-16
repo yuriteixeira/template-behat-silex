@@ -17,32 +17,41 @@ class Application extends \Silex\Application
 
         $app = $this;
 
-        $this->get('/', function() {
-            return new Response('Welcome!');
-        });
-
-        $this->get('/user/{userId}', function($userId) use ($app) {
-            foreach ($app->storage['users'] as $user) {
-                if ($user['login'] == $userId) {
-                    return new Response(json_encode($user));
-                }
+        $this->get(
+            '/',
+            function () {
+                return new Response('Welcome!');
             }
+        );
 
-            return new Response('', 404);
-        });
-
-        $this->post('/user', function(Request $request) use ($app) {
-            $login = $request->request->get('login');
-            $name = $request->request->get('name');
-
-            foreach ($app->storage['users'] as $user) {
-                if ($user['login'] == $login) {
-                    return new Response('', 400);
+        $this->get(
+            '/user/{userId}',
+            function ($userId) use ($app) {
+                foreach ($app->storage['users'] as $user) {
+                    if ($user['login'] == $userId) {
+                        return new Response(json_encode($user));
+                    }
                 }
-            }
 
-            $app->storage['users'][] = array('login' => $login, 'name' => $name);
-            return new Response();
-        });
+                return new Response('', 404);
+            }
+        );
+
+        $this->post(
+            '/user',
+            function (Request $request) use ($app) {
+                $login = $request->request->get('login');
+                $name = $request->request->get('name');
+
+                foreach ($app->storage['users'] as $user) {
+                    if ($user['login'] == $login) {
+                        return new Response('', 400);
+                    }
+                }
+
+                $app->storage['users'][] = array('login' => $login, 'name' => $name);
+                return new Response();
+            }
+        );
     }
 }
