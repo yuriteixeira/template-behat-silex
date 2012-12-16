@@ -6,14 +6,8 @@ php:
 
 before_script:
   - composer install
-  - pyrus channel-discover pear.pdepend.org
-  - pyrus install pdepend/PHP_Depend-beta
-  - pyrus install pear/PHP_CodeSniffer
-  - phpenv rehash
-  - pyrus install phpunit/phpcpd
-  - phpenv rehash
-  - pyrus channel-discover pear.phpmd.org
-  - pyrus install --alldeps phpmd/PHP_PMD
+  - pear config-set auto_discover 1
+  - pear install pear.phpqatools.org/phpqatools
   - phpenv rehash
 
 script:
