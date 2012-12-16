@@ -1,5 +1,7 @@
 # Behat + Silex #
 
+![image](https://api.travis-ci.org/yuriteixeira/behat-silex.png)
+
 This is a simple template to guide the first steps on development of a silex application defined and tested by behat features. 
 
 ## Requirements ##
