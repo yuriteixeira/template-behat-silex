@@ -1,4 +1,6 @@
 composer.lock
-vendor/*
 .idea
+
+vendor/*
 var/log/*
+build/*
