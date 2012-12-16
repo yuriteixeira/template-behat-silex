@@ -1,0 +1,19 @@
+{
+    "require": {
+        "behat/behat": "2.4.*@stable",
+        "silex/silex": "1.0.*@dev",
+        "symfony/browser-kit":"2.1.x-dev"
+    },
+
+    "minimum-stability": "dev",
+
+    "config": {
+        "bin-dir": "bin/"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Api": "src"
+        }
+    }
+}
