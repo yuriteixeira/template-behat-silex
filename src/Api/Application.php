@@ -12,9 +12,17 @@ class Application extends \Silex\Application
     public function __construct()
     {
         parent::__construct();
+        $this->setupStorage();
+        $this->setupRoutes();
+    }
 
+    public function setupStorage()
+    {
         $this->storage = array('users' => array());
+    }
 
+    public function setupRoutes()
+    {
         $app = $this;
 
         $this->get(
