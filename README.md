@@ -1,8 +1,8 @@
 # Behat + Silex #
 
-![image](https://api.travis-ci.org/yuriteixeira/behat-silex.png)
+[![Build Status](https://travis-ci.org/yuriteixeira/template-behat-silex.svg?branch=master)](https://travis-ci.org/yuriteixeira/template-behat-silex)
 
-This is a simple template to guide the first steps on development of a silex application defined and tested by behat features. 
+This is a simple template to guide the first steps on development of a silex application defined and tested by behat features.
 
 ## Requirements ##
 
@@ -23,10 +23,10 @@ When you run behat...
 
 * It will find the specification files with extension `.feature` inside the `features` folder
 * It will match methods to test the features inside the file `feature/bootstrap/FeatureContext.php` through the annotations followed by regular expressions and run them. Specifically, the "Scenario" related methods, on this project, are organized like this:
-	* Methods with the annotation `@Given` are fixture methods, used to fill 
+	* Methods with the annotation `@Given` are fixture methods, used to fill
 	* Methods with the annotation `@When` are calls to our project API
 	* Methods with the annotation `@Then` are assertion methods
-	
+
 ## What's next? ##
 
 * Fork this project
@@ -35,7 +35,3 @@ When you run behat...
 * Run `bin/behat -f snippets` to get the method skeleton to acomplish your feature requirements, add them to `feature/bootstrap/FeatureContext.php` and implement the needed coded inside them.
 * Run `bin/behat -v` and check if all tests passed
 * Problems or suggestions? Submit a pull request and I will try to help through them ;-)
-
-
-
-
