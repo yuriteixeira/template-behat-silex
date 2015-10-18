@@ -1,4 +1,4 @@
-# Silex API + Behat Tests with Code Coverage + QA Tools 
+# Silex API + Behat Tests with Code Coverage + QA Tools
 
 [![Build Status](https://travis-ci.org/yuriteixeira/template-behat-silex.svg?branch=master)](https://travis-ci.org/yuriteixeira/template-behat-silex)
 
@@ -13,7 +13,7 @@ This example application:
 * PHP >= 5.6 or HHVM
 * Composer: https://getcomposer.org/download/
 
-## CI Requirements 
+## CI Requirements
 
 * Ant
 
@@ -23,9 +23,16 @@ This example application:
 * Run `bin/behat`
 * You will (hopefully) see that all tests passed
 
-## Running the tests and all the QA tools, like a CI would do 
+## Running the tests and all the QA tools, like a CI would do
 
 * Run `ant` or `ant ci` (which is the one that travis is running)
+
+## Running the API, for reals (so you can call it using cURL, or even better: creating a Single Page App frontend to invoke it :D)
+
+```
+$ php -S localhost:8000 web/index.php
+$ curl http://localhost:8000/
+```
 
 ## What happened? ##
 
@@ -34,7 +41,7 @@ This example application:
 	* Methods with the annotation `@Given` are pre-conditions
 	* Methods with the annotation `@When` actions that you will test, like call an endpoint
 	* Methods with the annotation `@Then` are assertions that you will make on the results you got from the actions mentioned above (eg: the result of the API call you made)
-	
+
 **And of course, if you like and if it fit your needs, just start writing your API based on this code :)**
 
 ## What's next? ##
@@ -47,10 +54,3 @@ To check if you got the point and have some fun, you could:
 * Run `bin/behat -f snippets` to get the method skeleton to accomplish your feature requirements, add them to `feature/bootstrap/FeatureContext.php` and implement the needed coded inside them.
 * Run `bin/behat -v` and check if all tests passed
 * Problems or suggestions? Submit a pull request and I will try to help through them ;-)
-
-**ProTIP**: If you are developing a Single Page App and want to call the endpoints your api based on this project, use PHP's builtin webserver to put it up:
-
-```
-$ php -S localhost:8000 web/index.php
-```
-
