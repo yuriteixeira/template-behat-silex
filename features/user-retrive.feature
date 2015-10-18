@@ -12,7 +12,7 @@ Feature: Get user info
         ]
         """
 
-    Scenario: Authenticated consumers gets user info
+    Scenario: User that exists
         When call "GET" "/user" with resource id "yuri"
         Then response status should be "200"
         And json response should be:
@@ -23,3 +23,7 @@ Feature: Get user info
             "birthdate": "1984-05-16"
         }
         """
+
+    Scenario: User that doesn't exists
+        When call "GET" "/user" with resource id "not-here"
+        Then response status should be "404"
