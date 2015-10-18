@@ -3,5 +3,5 @@ composer.lock
 cache.properties
 
 vendor/*
-var/log/*
 build/*
+bin/*
