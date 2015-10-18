@@ -1,19 +1,16 @@
 <?php
 
-use Behat\Behat\Context\BehatContext;
+use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Symfony\Component\HttpKernel\Client;
 use Api\Application;
-
-require_once 'PHPUnit/Autoload.php';
-require_once 'PHPUnit/Framework/Assert/Functions.php';
+use \PHPUnit_Framework_Assert as Assert;
 
 /**
  * Features context.
  */
-class FeatureContext extends BehatContext
+class FeatureContext implements SnippetAcceptingContext
 {
-
     /**
      * @var Api\Application
      */
@@ -51,7 +48,7 @@ class FeatureContext extends BehatContext
      */
     public function responseStatusIs($statusCode)
     {
-        assertEquals($statusCode, $this->client->getResponse()->getStatusCode());
+        Assert::assertEquals($statusCode, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -89,7 +86,7 @@ class FeatureContext extends BehatContext
     {
         $clientResponse = json_decode($this->client->getResponse()->getContent(), true);
         $expectedResponse = json_decode($expectedResponseStringNode->getRaw(), true);
-        assertEquals($expectedResponse, $clientResponse);
+        Assert::assertEquals($expectedResponse, $clientResponse);
     }
 
     /**
@@ -97,6 +94,6 @@ class FeatureContext extends BehatContext
      */
     public function responseContentIsBlank()
     {
-        assertEmpty($this->client->getResponse()->getContent());
+        Assert::assertEmpty($this->client->getResponse()->getContent());
     }
 }
