@@ -16,7 +16,7 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>src/Api/Test</directory>
+            <directory>test/Test</directory>
         </testsuite>
     </testsuites>
 
@@ -24,7 +24,7 @@
         <whitelist>
             <directory>src/Api</directory>
             <exclude>
-                <directory>Test</directory>
+                <directory>test/Test</directory>
             </exclude>
         </whitelist>
     </filter>
