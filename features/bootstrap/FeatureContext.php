@@ -3,7 +3,6 @@
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Symfony\Component\HttpKernel\Client;
-use Api\Application;
 use \PHPUnit_Framework_Assert as Assert;
 
 /**
@@ -26,11 +25,11 @@ class FeatureContext implements SnippetAcceptingContext
      */
     public function setup($event)
     {
-        $app = new Application();
+        $app = new \Api\Application();
         $app['debug'] = true;
         unset($app['exception_handler']);
-        $this->app = $app;
 
+        $this->app = $app;
         $this->client = new Client($this->app);
     }
 
@@ -95,5 +94,21 @@ class FeatureContext implements SnippetAcceptingContext
     public function responseContentIsBlank()
     {
         Assert::assertEmpty($this->client->getResponse()->getContent());
+    }
+
+    /**
+     * @When call ":method" ":endpoint"
+     */
+    public function callEndpoint($method, $endpoint)
+    {
+        $this->client->request($method, "{$endpoint}");
+    }
+
+    /**
+     * @Then response content is ":content"
+     */
+    public function responseContentIs($content)
+    {
+        Assert::assertEquals($content, $this->client->getResponse()->getContent());
     }
 }
