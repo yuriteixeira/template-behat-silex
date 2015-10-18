@@ -3,7 +3,6 @@
 
     <!-- Setup -->
     <property environment="env"/>
-    <property name="peardir" value="${env.PHP_PEAR_BIN_DIR}"/>
 
     <!-- Build Target -->
     <target name="ci" depends="lint,phpmd,phpcpd,phpcs,phpunit-ci" />
@@ -38,13 +37,13 @@
     </target>
 
     <target name="phploc" description="Measure project size using PHPLOC">
-        <exec executable="phploc">
+        <exec executable="${basedir}/bin/phploc">
             <arg path="${basedir}/src" />
         </exec>
     </target>
 
     <target name="pdepend" description="Calculate software metrics using PHP_Depend">
-        <exec executable="pdepend">
+        <exec executable="${basedir}/bin/pdepend">
             <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
             <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
             <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
@@ -53,7 +52,7 @@
     </target>
 
     <target name="phpmd" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-        <exec executable="phpmd" failonerror="true">
+        <exec executable="${basedir}/bin/phpmd" failonerror="true">
             <arg path="${basedir}/src" />
             <arg value="text" />
             <arg value="codesize,design,unusedcode" />
@@ -61,20 +60,20 @@
     </target>
 
     <target name="phpcpd" description="Find duplicate code using PHPCPD">
-        <exec executable="phpcpd" failonerror="false">
+        <exec executable="${basedir}/bin/phpcpd" failonerror="false">
             <arg path="${basedir}/src"/>
         </exec>
     </target>
 
     <target name="phpunit" description="Run unit tests with PHPUnit">
-        <exec executable="phpunit" failonerror="true">
+        <exec executable="${basedir}/bin/phpunit" failonerror="true">
             <arg value="-c" />
             <arg value="${basedir}/phpunit.dist.xml" />
         </exec>
     </target>
 
     <target name="phpunit-ci" description="Run unit tests with PHPUnit without coverage reports">
-        <exec executable="phpunit" failonerror="true">
+        <exec executable="${basedir}/bin/phpunit" failonerror="true">
             <arg value="-c" />
             <arg value="${basedir}/phpunit-ci.dist.xml" />
             <arg value="--coverage-text" />
@@ -82,7 +81,7 @@
     </target>
 
     <target name="phpcs" description="Run CodeSniffer to validate coding standards">
-        <exec executable="phpcs" failonerror="true">
+        <exec executable="${basedir}/bin/phpcs" failonerror="true">
             <arg value="--standard=PSR2" />
             <arg path="${basedir}/src" />
         </exec>
